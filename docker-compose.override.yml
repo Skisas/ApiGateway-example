@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+  orders:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ServiceConfig__serviceDiscoveryAddress=http://consul:8500
+      - ServiceConfig__serviceAddress=http://orders:80
+      - ServiceConfig__serviceName=orders
+      - ServiceConfig__serviceId=orders-v1
+    ports:
+      - "80"
+
+  deliveries:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ServiceConfig__serviceDiscoveryAddress=http://consul:8500
+      - ServiceConfig__serviceAddress=http://deliveries:80
+      - ServiceConfig__serviceName=deliveries
+      - ServiceConfig__serviceId=deliveries-v1
+    ports:
+      - "80"
+
+  api.gateway:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80:80"
+
+  consul:
+    ports:
+    - "8500"
